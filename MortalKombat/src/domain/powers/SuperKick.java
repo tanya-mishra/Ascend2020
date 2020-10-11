@@ -1,25 +1,18 @@
 package domain.powers;
 
-import domain.actions.jump.DoubleJump;
-import domain.actions.jump.Jump;
-import domain.actions.kick.Kick;
-import domain.actions.kick.RoundHouseKick;
-import domain.actions.punch.Cross;
-import domain.actions.punch.Punch;
+import domain.attacks.Attack;
+import domain.attacks.jump.DoubleJump;
+import domain.attacks.kick.RoundHouseKick;
+import domain.attacks.punch.Cross;
 
-public class SuperKick extends Power{
-    @Override
-    public void setPunch() {
-        this.setPunch(new Punch(new Cross(), PowerLevel.MEDIUM));
-    }
-
-    @Override
-    public void setJump() {
-        this.setJump(new Jump(new DoubleJump(), PowerLevel.LOW));
-    }
-
-    @Override
-    public void setKick() {
-        this.setKick(new Kick(new RoundHouseKick(), PowerLevel.HIGH));
+/**
+ * Power with super kick
+ */
+public class SuperKick extends Power {
+    public SuperKick() {
+        super(
+                new Attack(new Cross(), PowerLevel.MEDIUM),
+                new Attack(new DoubleJump(), PowerLevel.LOW),
+                new Attack(new RoundHouseKick(), PowerLevel.HIGH));
     }
 }

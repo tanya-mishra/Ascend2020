@@ -1,25 +1,19 @@
 package domain.powers;
 
-import domain.actions.jump.Jump;
-import domain.actions.jump.TripleJump;
-import domain.actions.kick.Kick;
-import domain.actions.kick.RoundHouseKick;
-import domain.actions.punch.Punch;
-import domain.actions.punch.UpperCut;
+import domain.attacks.Attack;
+import domain.attacks.jump.TripleJump;
+import domain.attacks.kick.RoundHouseKick;
+import domain.attacks.punch.UpperCut;
 
+/**
+ * Power with super punch, kick and jump
+ */
 public class SuperTrio extends Power {
-    @Override
-    public void setPunch() {
-        this.setPunch(new Punch(new UpperCut(), PowerLevel.HIGH));
-    }
 
-    @Override
-    public void setJump() {
-        this.setJump(new Jump(new TripleJump(), PowerLevel.HIGH));
-    }
-
-    @Override
-    public void setKick() {
-        this.setKick(new Kick(new RoundHouseKick(), PowerLevel.HIGH));
+    public SuperTrio() {
+        super(
+                new Attack(new UpperCut(), PowerLevel.HIGH),
+                new Attack(new TripleJump(), PowerLevel.HIGH),
+                new Attack(new RoundHouseKick(), PowerLevel.HIGH));
     }
 }

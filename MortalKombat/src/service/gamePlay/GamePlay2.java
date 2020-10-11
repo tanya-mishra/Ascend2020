@@ -3,17 +3,19 @@ package service.gamePlay;
 import domain.Background;
 import domain.GameStatus;
 import domain.attacks.Attack;
-import domain.characters.JohnnyCage;
-import domain.characters.LiuKang;
+import domain.attacks.AttackName;
 import domain.players.Player;
-import domain.powers.SuperPunch;
-import domain.powers.SuperTrio;
 
-public class GamePlay {
+import java.util.Arrays;
+import java.util.List;
+
+public class GamePlay2 {
 
     Player player1;
 
     Player player2;
+
+    List<Player> players;
 
     Background background;
 
@@ -21,23 +23,26 @@ public class GamePlay {
 
     StringBuilder gamePlayResult;
 
-    public GamePlay(Player player1, Player player2, Background background) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.background = background;
+    public GamePlay2() {
+        this.players = Arrays.asList(new Player(), new Player());
+        this.background = Background.GREEN;
         gamePlayResult = new StringBuilder();
     }
 
-    private void newMove(Player attacker, Player defender, Attack attack) {
+    private void newMove(Integer attackerIndex, AttackName attackName) {
         StringBuilder result = new StringBuilder();
+        Player attacker = players.get(attackerIndex);
+        Player defender = players.get(1 - attackerIndex);
+        Attack attack = getAttackByName(attacker, attackName);
+
         if (gameStatus.equals(GameStatus.IN_PROGRESS)) {
             if (attacker.canMakeMove(attack)) {
                 result.append(attacker.attack(attack));
                 defender.defend(attack);
                 result.append("\n \t")
-                        .append(this.player1.toString())
+                        .append(players.get(0).toString())
                         .append(", \n \t")
-                        .append(this.player2.toString());
+                        .append(players.get(1).toString());
                 if (defender.getHealth() <= 0) {
                     this.setGameStatus(GameStatus.OVER);
                     result.append("\n GAME OVER \n ")
@@ -53,29 +58,46 @@ public class GamePlay {
         gamePlayResult.append("\n").append(result.toString());
     }
 
+    /**
+     * @param attacker   - player who makes the move
+     * @param attackName - type of attack
+     * @return - Type of attack (returns punch by default)
+     */
+    private Attack getAttackByName(Player attacker, AttackName attackName) {
+        switch (attackName) {
+            case KICK:
+                return attacker.kick();
+            case JUMP:
+                return attacker.jump();
+            case PUNCH:
+                return attacker.punch();
+            default:
+                return attacker.punch();
+        }
+    }
+
     public static void main(String[] args) {
-        Player player1 = new Player(new JohnnyCage(), new SuperPunch());
-        Player player2 = new Player(new LiuKang(), new SuperTrio());
-        GamePlay gamePlay = new GamePlay(player1, player2, Background.GREEN);
+        GamePlay2 gamePlay = new GamePlay2();
         gamePlay.makeMoves();
         System.out.println(gamePlay.gamePlayResult.toString());
     }
 
     private void makeMoves() {
         this.setGameStatus(GameStatus.IN_PROGRESS);
-        newMove(this.player1, this.player2, this.player1.kick());
-        newMove(this.player2, this.player1, this.player1.punch());
-        newMove(this.player1, this.player2, this.player1.punch());
-        newMove(this.player2, this.player1, this.player1.jump());
-        newMove(this.player1, this.player2, this.player1.jump());
-        newMove(this.player2, this.player1, this.player1.kick());
-        newMove(this.player1, this.player2, this.player1.punch());
-        newMove(this.player2, this.player1, this.player1.jump());
-        newMove(this.player1, this.player2, this.player1.kick());
-        newMove(this.player2, this.player1, this.player1.kick());
+        System.out.println(players.toString());
+
+        newMove(0, AttackName.PUNCH);
+        newMove(1, AttackName.JUMP);
+        newMove(0, AttackName.JUMP);
+        newMove(1, AttackName.KICK);
+        newMove(0, AttackName.PUNCH);
+        newMove(1, AttackName.JUMP);
+        newMove(0, AttackName.KICK);
+        newMove(1, AttackName.KICK);
     }
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
+
 }

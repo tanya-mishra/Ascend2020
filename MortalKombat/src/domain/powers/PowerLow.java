@@ -1,26 +1,21 @@
 package domain.powers;
 
 
-import domain.actions.jump.HighJump;
-import domain.actions.jump.Jump;
-import domain.actions.kick.BackKick;
-import domain.actions.kick.Kick;
-import domain.actions.punch.Jab;
-import domain.actions.punch.Punch;
+import domain.attacks.Attack;
+import domain.attacks.jump.HighJump;
+import domain.attacks.kick.BackKick;
+import domain.attacks.punch.Jab;
 
-public class PowerLow extends Power{
-    @Override
-    public void setPunch() {
-        this.setPunch(new Punch(new Jab(), PowerLevel.LOW));
+/**
+ * Low intensity power
+ */
+public class PowerLow extends Power {
+
+    public PowerLow() {
+        super(
+                new Attack(new Jab(), PowerLevel.LOW),
+                new Attack(new HighJump(), PowerLevel.LOW),
+                new Attack(new BackKick(), PowerLevel.LOW));
     }
 
-    @Override
-    public void setJump() {
-        this.setJump(new Jump(new HighJump(), PowerLevel.LOW));
-    }
-
-    @Override
-    public void setKick() {
-        this.setKick(new Kick(new BackKick(), PowerLevel.LOW));
-    }
 }

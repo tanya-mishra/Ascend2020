@@ -1,25 +1,19 @@
 package domain.powers;
 
-import domain.actions.jump.Jump;
-import domain.actions.jump.TripleJump;
-import domain.actions.kick.FrontKick;
-import domain.actions.kick.Kick;
-import domain.actions.punch.Hook;
-import domain.actions.punch.Punch;
+import domain.attacks.Attack;
+import domain.attacks.jump.TripleJump;
+import domain.attacks.kick.FrontKick;
+import domain.attacks.punch.Hook;
 
-public class SuperJump extends Power{
-    @Override
-    public void setPunch() {
-        this.setPunch(new Punch(new Hook(), PowerLevel.MEDIUM));
-    }
+/**
+ * Power with super jump
+ */
+public class SuperJump extends Power {
 
-    @Override
-    public void setJump() {
-        this.setJump(new Jump(new TripleJump(), PowerLevel.HIGH));
-    }
-
-    @Override
-    public void setKick() {
-        this.setKick(new Kick(new FrontKick(), PowerLevel.LOW));
+    public SuperJump() {
+        super(
+                new Attack(new Hook(), PowerLevel.MEDIUM),
+                new Attack(new TripleJump(), PowerLevel.HIGH),
+                new Attack(new FrontKick(), PowerLevel.LOW));
     }
 }

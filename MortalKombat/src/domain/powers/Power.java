@@ -1,58 +1,66 @@
 package domain.powers;
 
-import domain.actions.jump.Jump;
-import domain.actions.kick.Kick;
-import domain.actions.punch.Punch;
+import domain.attacks.Attack;
 
-public abstract class Power {
+/**
+ * Each power comes with 3 attacks, punch, jump and kick
+ */
+public class Power {
 
-    private Punch punch;
+    private Attack punch;
 
-    private Jump jump;
+    private Attack jump;
 
-    private Kick kick;
+    private Attack kick;
 
-    public Power() {
-        this.setJump();
-        this.setPunch();
-        this.setKick();
+    public Power(Attack punch, Attack jump, Attack kick) {
+        this.punch = punch;
+        this.jump = jump;
+        this.kick = kick;
     }
 
-    public Punch getPunch() {
+    public String punch() {
+        return this.punch.attack();
+    }
+
+    public String jump() {
+        return this.jump.attack();
+    }
+
+    public String kick() {
+        return this.kick.attack();
+    }
+
+    public Attack getPunch() {
         return punch;
     }
 
-    public Jump getJump() {
-        return jump;
-    }
-
-    public Kick getKick() {
-        return kick;
-    }
-
-    public String punch(){
-        return this.punch.punch();
-    }
-
-    public String kick() {return this.kick.kick();}
-
-    public String jump() {return this.jump.jump();}
-
-    public abstract void setPunch();
-
-    public abstract void setJump();
-
-    public abstract void setKick();
-
-    public void setPunch(Punch punch){
+    public void setPunch(Attack punch) {
         this.punch = punch;
     }
 
-    public void setJump(Jump jump){
+    public Attack getJump() {
+        return jump;
+    }
+
+    public void setJump(Attack jump) {
         this.jump = jump;
     }
 
-    public void setKick(Kick kick){
+    public Attack getKick() {
+        return kick;
+    }
+
+    public void setKick(Attack kick) {
         this.kick = kick;
+    }
+
+    @Override
+    public String toString() {
+        return "Power{" +
+                "punch=" + punch.attack() +
+                ", jump=" + jump.attack() +
+                ", kick=" + kick.attack() +
+                '}';
     }
 }
