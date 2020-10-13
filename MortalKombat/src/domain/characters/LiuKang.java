@@ -1,13 +1,19 @@
 package domain.characters;
 
 public class LiuKang extends Character {
+
     @Override
-    public void setName() {
-        this.setName("Liu Kang");
+    public String getName() {
+        return "Liu Kang";
     }
 
     @Override
     public String getVictoryMove() {
-        return "";
+        return "Punchhhhh";
+    }
+
+    @Override
+    public Integer getPowerFactor() {
+        return 3;
     }
 }

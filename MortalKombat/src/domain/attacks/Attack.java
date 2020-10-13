@@ -1,62 +1,26 @@
 package domain.attacks;
 
-import domain.powers.PowerLevel;
-
-/**
- * An attack has an attack type - like jump, kick or punch, and a power level - low,medium or high
- */
-public class Attack {
-
-    public Attack(AttackType attackType, PowerLevel powerLevel) {
-        this.powerLevel = powerLevel;
-        this.attackType = attackType;
-    }
-
-    private PowerLevel powerLevel;
-
-    private AttackType attackType;
+public interface Attack {
 
     /**
-     * Energy you need to make this move
+     * Health loss when your opponent makes this move
      *
-     * @return Energy you need to make this move
+     * @return Health loss when your opponent makes this move
      */
-    public Integer getEnergyCostOfAttack() {
-        return this.attackType.getEnergyCost() * this.powerLevel.getEnergyFactor();
-    }
+    Integer getDamage();
 
     /**
-     * Health lost by opponent when you make this move
+     * Type of attack
      *
-     * @return Health lost by opponent when you make this move
+     * @return details of attack
      */
-    public Integer getDamageForAttack() {
-        return this.attackType.getDamage()
-                * this.powerLevel.getEnergyFactor() * 4;
-    }
+    String attack();
 
     /**
-     * Details of the move you have made
+     * Energy needed for you to make this move
      *
-     * @return Details of the move you have made
+     * @return Energy needed for you to make this move
      */
-    public String attack() {
-        return this.attackType.attack() + " with " + powerLevel + " power";
-    }
+    Integer getEnergyCost();
 
-    public PowerLevel getPowerLevel() {
-        return powerLevel;
-    }
-
-    public void setPowerLevel(PowerLevel powerLevel) {
-        this.powerLevel = powerLevel;
-    }
-
-    public AttackType getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(AttackType attackType) {
-        this.attackType = attackType;
-    }
 }

@@ -1,13 +1,19 @@
 package domain.characters;
 
 public class JohnnyCage extends Character {
+
     @Override
-    public void setName() {
-        this.setName("Johnny Cage");
+    public String getName() {
+        return "Johnny Cage";
     }
 
     @Override
     public String getVictoryMove() {
-        return "";
+        return "Kickkkk";
+    }
+
+    @Override
+    public Integer getPowerFactor() {
+        return 10;
     }
 }

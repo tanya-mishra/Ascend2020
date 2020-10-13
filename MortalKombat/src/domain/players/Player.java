@@ -4,8 +4,6 @@ import domain.attacks.Attack;
 import domain.attacks.AttackName;
 import domain.characters.Character;
 import domain.characters.CharacterFactory;
-import domain.patterns.factory.PowerFactory;
-import domain.powers.Power;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,43 +13,17 @@ public class Player {
 
     Character character;
 
-    Power power;
-
     Integer energy;
 
     Integer health;
 
-    public Attack kick() {
-        return this.getPower().getKick();
-    }
-
-    public Attack jump() {
-        return this.getPower().getJump();
-    }
-
-    public Attack punch() {
-        return this.getPower().getPunch();
-    }
-
-    public Player(Character character, Power power) {
-        this.character = character;
-        this.power = power;
-        this.energy = 100;
-        this.health = 100;
-    }
-
-    public Player() {
+    public Player(String characterName) {
         List<String> characters = Arrays.asList("JC", "LK", "K", "R");
-        List<String> powers = Arrays.asList("PowerLow", "SuperTrio", "SuperJump", "SuperKick", "SuperPunch");
-
         CharacterFactory cf = new CharacterFactory();
-        PowerFactory pf = new PowerFactory();
-
-        Character character = cf.getCharacter(characters.get(getRandomNumberUsingInts(characters.size())));
-        Power power = pf.getPower(powers.get(getRandomNumberUsingInts(powers.size())));
-
-        this.character = character;
-        this.power = power;
+        if (characterName == null) {
+            characterName = characters.get(getRandomNumberUsingInts(characters.size()));
+        }
+        this.character = cf.getCharacter(characterName);
         this.energy = 100;
         this.health = 100;
 
@@ -59,18 +31,6 @@ public class Player {
 
     public Character getCharacter() {
         return character;
-    }
-
-    public Power getPower() {
-        return power;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
-    public void setPower(Power power) {
-        this.power = power;
     }
 
     public Integer getEnergy() {
@@ -90,39 +50,28 @@ public class Player {
     }
 
     public Boolean canMakeMove(Attack attack) {
-        return this.getEnergy() >= attack.getEnergyCostOfAttack();
+        return this.getHealth() > 0 && this.getEnergy() >=
+                attack.getEnergyCost() * this.getCharacter().getPowerFactor();
     }
 
     public String attack(Attack attack) {
-        Integer energyNeeded = attack.getEnergyCostOfAttack();
+        Integer energyNeeded = attack.getEnergyCost() * this.getCharacter().getPowerFactor();
         this.setEnergy(this.getEnergy() - energyNeeded);
-        return this.character.getName() + ":" + attack.getAttackType().attack() + " with " + attack.getPowerLevel();
+        return this.character.getName() + ":" + attack.attack();
     }
 
-    public void defend(Attack attack) {
-        int remainingHealth = this.getHealth() - attack.getDamageForAttack();
+    public void defend(Attack attack, Integer powerFactor) {
+        int remainingHealth = this.getHealth() - attack.getDamage() * powerFactor;
         this.setHealth(Math.max(remainingHealth, 0));
     }
 
-
-    /**
-     * @param attacker   - player who makes the move
-     * @param attackName - type of attack
-     * @return - Type of attack (returns punch by default)
-     */
-    public static Attack getAttackByName(Player attacker, AttackName attackName) {
-        switch (attackName) {
-            case KICK:
-                return attacker.kick();
-            case JUMP:
-                return attacker.jump();
-            case PUNCH:
-                return attacker.punch();
-            default:
-                return attacker.punch();
-        }
+    public String makeVictoryMove() {
+        return this.getCharacter().getName() + " wins! \n Victory Move : " + this.getCharacter().getVictoryMove();
     }
 
+    public List<AttackName> getAvailableAttacks() {
+        return this.getCharacter().getAvailableAttacks(this.getEnergy());
+    }
 
     @Override
     public String toString() {
@@ -139,3 +88,5 @@ public class Player {
         return random.nextInt(max);
     }
 }
+
+

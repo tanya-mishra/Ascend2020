@@ -1,4 +1,4 @@
-package domain;
+package service.gamePlay;
 
 public enum GameStatus {
     NOT_STARTED,

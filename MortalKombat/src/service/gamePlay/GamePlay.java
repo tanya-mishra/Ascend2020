@@ -1,81 +1,52 @@
 package service.gamePlay;
 
-import domain.Background;
-import domain.GameStatus;
-import domain.attacks.Attack;
-import domain.characters.JohnnyCage;
-import domain.characters.LiuKang;
+import domain.move.Move;
 import domain.players.Player;
-import domain.powers.SuperPunch;
-import domain.powers.SuperTrio;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class GamePlay {
 
-    Player player1;
+    List<Player> players;
 
-    Player player2;
+    GamePlayMonitor gamePlayMonitor;
 
-    Background background;
+    GameStatus gameStatus;
 
-    GameStatus gameStatus = GameStatus.NOT_STARTED;
-
-    StringBuilder gamePlayResult;
-
-    public GamePlay(Player player1, Player player2, Background background) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.background = background;
-        gamePlayResult = new StringBuilder();
+    public GamePlay(String player1, String player2) {
+        this.players = Arrays.asList(new Player(player1), new Player(player2));
+        gamePlayMonitor = new GamePlayMonitor();
+        gameStatus = GameStatus.NOT_STARTED;
     }
 
-    private void newMove(Player attacker, Player defender, Attack attack) {
-        StringBuilder result = new StringBuilder();
+    private void makeMove(Integer attackerIndex) {
         if (gameStatus.equals(GameStatus.IN_PROGRESS)) {
-            if (attacker.canMakeMove(attack)) {
-                result.append(attacker.attack(attack));
-                defender.defend(attack);
-                result.append("\n \t")
-                        .append(this.player1.toString())
-                        .append(", \n \t")
-                        .append(this.player2.toString());
-                if (defender.getHealth() <= 0) {
-                    this.setGameStatus(GameStatus.OVER);
-                    result.append("\n GAME OVER \n ")
-                            .append(attacker.getCharacter().getName())
-                            .append(" wins!");
-                }
-            } else {
-                result.append(attacker.getCharacter().getName())
-                        .append(" Low on power - cannot ")
-                        .append(attack.getAttackType().attack());
+            String result = Move.makeMove(players.get(attackerIndex), players.get(1 - attackerIndex));
+            if (Move.isGameOver(players)) {
+                this.gameStatus = GameStatus.OVER;
             }
+            gamePlayMonitor.update(players.get(0), players.get(1), result);
         }
-        gamePlayResult.append("\n").append(result.toString());
     }
+
+    private void startGame() {
+        this.gameStatus = GameStatus.IN_PROGRESS;
+    }
+
 
     public static void main(String[] args) {
-        Player player1 = new Player(new JohnnyCage(), new SuperPunch());
-        Player player2 = new Player(new LiuKang(), new SuperTrio());
-        GamePlay gamePlay = new GamePlay(player1, player2, Background.GREEN);
+        GamePlay gamePlay = new GamePlay("LK", "K");
+        gamePlay.startGame();
         gamePlay.makeMoves();
-        System.out.println(gamePlay.gamePlayResult.toString());
     }
 
     private void makeMoves() {
-        this.setGameStatus(GameStatus.IN_PROGRESS);
-        newMove(this.player1, this.player2, this.player1.kick());
-        newMove(this.player2, this.player1, this.player1.punch());
-        newMove(this.player1, this.player2, this.player1.punch());
-        newMove(this.player2, this.player1, this.player1.jump());
-        newMove(this.player1, this.player2, this.player1.jump());
-        newMove(this.player2, this.player1, this.player1.kick());
-        newMove(this.player1, this.player2, this.player1.punch());
-        newMove(this.player2, this.player1, this.player1.jump());
-        newMove(this.player1, this.player2, this.player1.kick());
-        newMove(this.player2, this.player1, this.player1.kick());
+
+        while (this.gameStatus.equals(GameStatus.IN_PROGRESS)) {
+            makeMove(0);
+            makeMove(1);
+        }
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
 }

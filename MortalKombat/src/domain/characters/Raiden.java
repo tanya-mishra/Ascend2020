@@ -1,13 +1,19 @@
 package domain.characters;
 
 public class Raiden extends Character {
+
     @Override
-    public void setName() {
-        this.setName("Raiden");
+    public String getName() {
+        return "Raiden";
     }
 
     @Override
     public String getVictoryMove() {
-        return "";
+        return "Jump Punch";
+    }
+
+    @Override
+    public Integer getPowerFactor() {
+        return 7;
     }
 }

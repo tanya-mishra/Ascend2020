@@ -1,22 +1,44 @@
 package domain.characters;
 
+import domain.attacks.AttackName;
+import domain.attacks.Jump;
+import domain.attacks.Kick;
+import domain.attacks.Punch;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Character {
 
-   String name;
+   Jump jump;
+
+   Kick kick;
+
+   Punch punch;
 
    public Character() {
-      this.setName();
+      jump = new Jump();
+      kick = new Kick();
+      punch = new Punch();
    }
 
-   public abstract void setName();
-
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
+   public abstract String getName();
 
    public abstract String getVictoryMove();
+
+   public abstract Integer getPowerFactor();
+
+   public List<AttackName> getAvailableAttacks(Integer energy) {
+      List<AttackName> availableAttackTypes = new ArrayList<>();
+      if (jump.getEnergyCost() * getPowerFactor() <= energy) {
+         availableAttackTypes.add(AttackName.JUMP);
+      }
+      if (kick.getEnergyCost() * getPowerFactor() <= energy) {
+         availableAttackTypes.add(AttackName.KICK);
+      }
+      if (punch.getEnergyCost() * getPowerFactor() <= energy) {
+         availableAttackTypes.add(AttackName.PUNCH);
+      }
+      return availableAttackTypes;
+   }
 }
