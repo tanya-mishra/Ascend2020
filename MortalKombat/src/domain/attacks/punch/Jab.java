@@ -10,7 +10,7 @@ public class Jab extends Punch {
      * @return Energy lost by opponent when you use jab
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 1;
     }
 

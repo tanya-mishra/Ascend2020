@@ -5,4 +5,9 @@ public class Raiden extends Character {
     public void setName() {
         this.setName("Raiden");
     }
+
+    @Override
+    public String getVictoryMove() {
+        return "";
+    }
 }

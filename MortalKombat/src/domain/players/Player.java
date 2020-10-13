@@ -1,6 +1,7 @@
 package domain.players;
 
 import domain.attacks.Attack;
+import domain.attacks.AttackName;
 import domain.characters.Character;
 import domain.characters.CharacterFactory;
 import domain.patterns.factory.PowerFactory;
@@ -19,6 +20,18 @@ public class Player {
     Integer energy;
 
     Integer health;
+
+    public Attack kick() {
+        return this.getPower().getKick();
+    }
+
+    public Attack jump() {
+        return this.getPower().getJump();
+    }
+
+    public Attack punch() {
+        return this.getPower().getPunch();
+    }
 
     public Player(Character character, Power power) {
         this.character = character;
@@ -87,21 +100,29 @@ public class Player {
     }
 
     public void defend(Attack attack) {
-        int remainingHealth = this.getHealth() - attack.getOpponentHealthLossForAttack();
+        int remainingHealth = this.getHealth() - attack.getDamageForAttack();
         this.setHealth(Math.max(remainingHealth, 0));
     }
 
-    public Attack kick() {
-        return this.getPower().getKick();
+
+    /**
+     * @param attacker   - player who makes the move
+     * @param attackName - type of attack
+     * @return - Type of attack (returns punch by default)
+     */
+    public static Attack getAttackByName(Player attacker, AttackName attackName) {
+        switch (attackName) {
+            case KICK:
+                return attacker.kick();
+            case JUMP:
+                return attacker.jump();
+            case PUNCH:
+                return attacker.punch();
+            default:
+                return attacker.punch();
+        }
     }
 
-    public Attack jump() {
-        return this.getPower().getJump();
-    }
-
-    public Attack punch() {
-        return this.getPower().getPunch();
-    }
 
     @Override
     public String toString() {

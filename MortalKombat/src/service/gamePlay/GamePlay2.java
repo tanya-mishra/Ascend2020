@@ -11,10 +11,6 @@ import java.util.List;
 
 public class GamePlay2 {
 
-    Player player1;
-
-    Player player2;
-
     List<Player> players;
 
     Background background;
@@ -33,7 +29,7 @@ public class GamePlay2 {
         StringBuilder result = new StringBuilder();
         Player attacker = players.get(attackerIndex);
         Player defender = players.get(1 - attackerIndex);
-        Attack attack = getAttackByName(attacker, attackName);
+        Attack attack = Player.getAttackByName(attacker, attackName);
 
         if (gameStatus.equals(GameStatus.IN_PROGRESS)) {
             if (attacker.canMakeMove(attack)) {
@@ -58,23 +54,6 @@ public class GamePlay2 {
         gamePlayResult.append("\n").append(result.toString());
     }
 
-    /**
-     * @param attacker   - player who makes the move
-     * @param attackName - type of attack
-     * @return - Type of attack (returns punch by default)
-     */
-    private Attack getAttackByName(Player attacker, AttackName attackName) {
-        switch (attackName) {
-            case KICK:
-                return attacker.kick();
-            case JUMP:
-                return attacker.jump();
-            case PUNCH:
-                return attacker.punch();
-            default:
-                return attacker.punch();
-        }
-    }
 
     public static void main(String[] args) {
         GamePlay2 gamePlay = new GamePlay2();

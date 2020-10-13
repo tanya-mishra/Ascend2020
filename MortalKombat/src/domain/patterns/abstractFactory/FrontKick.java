@@ -11,7 +11,7 @@ public class FrontKick implements AttackType {
      * @return Energy lost by opponent when you use round house kick
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 3;
     }
 

@@ -11,7 +11,7 @@ public class FrontKick extends Kick {
      * @return Energy lost by opponent when you use front kick
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 2;
     }
 

@@ -11,7 +11,7 @@ public class DoubleJump extends Jump {
      * @return Energy lost by opponent when you use double jump
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 2;
     }
 

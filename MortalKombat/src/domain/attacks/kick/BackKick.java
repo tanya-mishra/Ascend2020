@@ -11,7 +11,7 @@ public class BackKick extends Kick {
      * @return Energy lost by opponent when you use back kick
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 2;
     }
 

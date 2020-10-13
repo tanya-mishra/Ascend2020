@@ -10,7 +10,7 @@ public class UpperCut extends Punch {
      * @return Energy lost by opponent when you use upper cut
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 2;
     }
 

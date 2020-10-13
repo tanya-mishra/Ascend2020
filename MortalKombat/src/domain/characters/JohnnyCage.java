@@ -5,4 +5,9 @@ public class JohnnyCage extends Character {
     public void setName() {
         this.setName("Johnny Cage");
     }
+
+    @Override
+    public String getVictoryMove() {
+        return "";
+    }
 }

@@ -3,7 +3,7 @@ package domain.attacks;
 import domain.powers.PowerLevel;
 
 /**
- * An attack has an attach type - like jump, kick or punch, and a power level - low,medium or high
+ * An attack has an attack type - like jump, kick or punch, and a power level - low,medium or high
  */
 public class Attack {
 
@@ -30,8 +30,8 @@ public class Attack {
      *
      * @return Health lost by opponent when you make this move
      */
-    public Integer getOpponentHealthLossForAttack() {
-        return this.attackType.getOpponentHealthLoss()
+    public Integer getDamageForAttack() {
+        return this.attackType.getDamage()
                 * this.powerLevel.getEnergyFactor() * 4;
     }
 

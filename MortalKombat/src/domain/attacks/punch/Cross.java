@@ -11,7 +11,7 @@ public class Cross extends Punch {
      * @return Energy lost by opponent when you use cross
      */
     @Override
-    public Integer getOpponentHealthLoss() {
+    public Integer getDamage() {
         return 1;
     }
 

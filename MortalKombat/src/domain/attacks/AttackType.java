@@ -7,7 +7,7 @@ public interface AttackType {
      *
      * @return Health loss when your opponent makes this move
      */
-    Integer getOpponentHealthLoss();
+    Integer getDamage();
 
     /**
      * Type of attack
