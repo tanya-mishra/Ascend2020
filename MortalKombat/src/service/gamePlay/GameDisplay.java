@@ -2,7 +2,7 @@ package service.gamePlay;
 
 import domain.players.Player;
 
-public class GamePlayMonitor {
+public class GameDisplay {
 
     Player player1;
 
