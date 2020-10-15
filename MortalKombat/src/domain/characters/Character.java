@@ -16,17 +16,37 @@ public abstract class Character {
 
    Punch punch;
 
+   String name;
+
+   Integer powerFactor;
+
    public Character() {
       jump = new Jump();
       kick = new Kick();
       punch = new Punch();
    }
 
-   public abstract String getName();
+   public void setName(String name) {
+      this.name = name;
+   }
 
-   public abstract String getVictoryMove();
+   public void setPowerFactor(Integer powerFactor) {
+      this.powerFactor = powerFactor;
+   }
 
-   public abstract Integer getPowerFactor();
+   public String getName() {
+      return name;
+   }
+
+   public Integer getPowerFactor() {
+      return powerFactor;
+   }
+
+   public abstract void setName();
+
+   public abstract String makeVictoryMove();
+
+   public abstract void setPowerFactor();
 
    public List<AttackName> getAvailableAttacks(Integer energy) {
       List<AttackName> availableAttackTypes = new ArrayList<>();

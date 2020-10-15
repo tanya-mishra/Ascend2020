@@ -66,7 +66,7 @@ public class Player {
     }
 
     public String makeVictoryMove() {
-        return this.getCharacter().getName() + " wins! \n Victory Move : " + this.getCharacter().getVictoryMove();
+        return this.getCharacter().getName() + " wins! \n Victory Move : " + this.getCharacter().makeVictoryMove();
     }
 
     public List<AttackName> getAvailableAttacks() {

@@ -3,17 +3,17 @@ package domain.characters;
 public class JohnnyCage extends Character {
 
     @Override
-    public String getName() {
-        return "Johnny Cage";
+    public void setName() {
+        this.setName("Johnny Cage");
     }
 
     @Override
-    public String getVictoryMove() {
+    public String makeVictoryMove() {
         return "Kickkkk";
     }
 
     @Override
-    public Integer getPowerFactor() {
-        return 10;
+    public void setPowerFactor() {
+        this.setPowerFactor(10);
     }
 }

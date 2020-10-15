@@ -2,9 +2,6 @@ package domain.attacks;
 
 public class Punch implements Attack {
 
-    public Punch() {
-    }
-
     @Override
     public Integer getDamage() {
         return 3;
