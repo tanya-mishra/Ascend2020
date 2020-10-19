@@ -24,14 +24,8 @@ public abstract class Character {
       jump = new Jump();
       kick = new Kick();
       punch = new Punch();
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public void setPowerFactor(Integer powerFactor) {
-      this.powerFactor = powerFactor;
+      this.setName();
+      this.setPowerFactor();
    }
 
    public String getName() {

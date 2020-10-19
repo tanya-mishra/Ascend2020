@@ -2,9 +2,13 @@ package domain.characters;
 
 public class JohnnyCage extends Character {
 
+    public JohnnyCage() {
+        super();
+    }
+
     @Override
     public void setName() {
-        this.setName("Johnny Cage");
+        this.name = "Johnny Cage";
     }
 
     @Override
@@ -14,6 +18,6 @@ public class JohnnyCage extends Character {
 
     @Override
     public void setPowerFactor() {
-        this.setPowerFactor(10);
+        this.powerFactor = 10;
     }
 }

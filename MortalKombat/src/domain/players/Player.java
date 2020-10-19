@@ -18,11 +18,13 @@ public class Player {
     Integer health;
 
     public Player(String characterName) {
-        List<String> characters = Arrays.asList("JC", "LK", "K", "R");
         CharacterFactory cf = new CharacterFactory();
+
         if (characterName == null) {
+            List<String> characters = Arrays.asList("JC", "LK", "K", "R");
             characterName = characters.get(getRandomNumberUsingInts(characters.size()));
         }
+
         this.character = cf.getCharacter(characterName);
         this.energy = 100;
         this.health = 100;
@@ -49,11 +51,6 @@ public class Player {
         this.health = health;
     }
 
-    public Boolean canMakeMove(Attack attack) {
-        return this.getHealth() > 0 && this.getEnergy() >=
-                attack.getEnergyCost() * this.getCharacter().getPowerFactor();
-    }
-
     public String attack(Attack attack) {
         Integer energyNeeded = attack.getEnergyCost() * this.getCharacter().getPowerFactor();
         this.setEnergy(this.getEnergy() - energyNeeded);
@@ -61,7 +58,7 @@ public class Player {
     }
 
     public void defend(Attack attack, Integer powerFactor) {
-        int remainingHealth = this.getHealth() - attack.getDamage() * powerFactor;
+        int remainingHealth = this.getHealth() - (int) (attack.getDamage() * powerFactor * 1.5);
         this.setHealth(Math.max(remainingHealth, 0));
     }
 

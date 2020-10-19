@@ -2,10 +2,13 @@ package domain.move;
 
 import domain.attacks.*;
 import domain.players.Player;
+import service.gamePlay.Move;
 
 import java.util.List;
 
-public class Move {
+public class GameMove implements Move {
+
+    private static int moveCount = 0;
 
     /**
      * @param attackName - type of attack
@@ -24,20 +27,19 @@ public class Move {
         }
     }
 
-    public static String makeMove(Player attacker, Player defender) {
+    public String makeMove(List<Player> players) {
+        int attackerIndex = moveCount % 2;
+        moveCount++;
+        return this.makeMove(players.get(attackerIndex), players.get(1 - attackerIndex));
+    }
+
+    private String makeMove(Player attacker, Player defender) {
         StringBuilder result = new StringBuilder();
         List<AttackName> availableAttacks = attacker.getAvailableAttacks();
         if (availableAttacks.size() > 0) {
-            AttackName attackName = availableAttacks.get((int) (Math.random() * availableAttacks.size()));
-            Attack attack = getAttackByName(attackName);
-            if (attacker.canMakeMove(attack)) {
-                result.append(attacker.attack(attack));
-                defender.defend(attack, (int) (attacker.getCharacter().getPowerFactor() * 1.5));
-            } else {
-                result.append(attacker.getCharacter().getName())
-                        .append(" Low on power - cannot ")
-                        .append(attack.attack());
-            }
+            Attack attack = getRandomAttack(availableAttacks);
+            result.append(attacker.attack(attack));
+            defender.defend(attack, attacker.getCharacter().getPowerFactor());
         } else {
             result.append(attacker.getCharacter().getName())
                     .append(" Low on power - no moves possible ");
@@ -45,7 +47,12 @@ public class Move {
         return result.toString();
     }
 
-    public static Boolean isGameOver(List<Player> players) {
+    private static Attack getRandomAttack(List<AttackName> availableAttacks) {
+        AttackName attackName = availableAttacks.get((int) (Math.random() * availableAttacks.size()));
+        return getAttackByName(attackName);
+    }
+
+    public Boolean isGameOver(List<Player> players) {
 
         return (players.get(0).getHealth() <= 0
                 || players.get(1).getHealth() <= 0

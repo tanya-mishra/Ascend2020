@@ -12,7 +12,7 @@ public class GameDisplay {
         this.player1 = player1;
         this.player2 = player2;
 
-        String result = "";
+        String result;
 
         if (player1.getHealth() <= 0) {
             result = "GAME OVER ! " + player2.makeVictoryMove();
@@ -23,6 +23,8 @@ public class GameDisplay {
                     (player1.getHealth().equals(player2.getHealth()) && player1.getEnergy() > player2.getEnergy())
                     ? player1 : player2;
             result = "No moves possible for either player! \n GAME OVER ! " + winner.makeVictoryMove();
+        } else {
+            result = "It's a tie! No more moves possible for either player.";
         }
         display(move, result);
     }

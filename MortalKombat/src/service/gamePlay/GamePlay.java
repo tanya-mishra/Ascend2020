@@ -1,6 +1,6 @@
 package service.gamePlay;
 
-import domain.move.Move;
+import domain.move.GameMove;
 import domain.players.Player;
 
 import java.util.Arrays;
@@ -16,20 +16,19 @@ public class GamePlay {
 
     GameSaver gameSaver;
 
-    Integer moveCount = 0;
+    Move move;
 
     public GamePlay(String player1, String player2) {
         this.players = Arrays.asList(new Player(player1), new Player(player2));
         gameDisplay = new GameDisplay();
         gameSaver = new GameSaver();
         gameStatus = GameStatus.NOT_STARTED;
+        move = new GameMove();
     }
 
     private void makeMove() {
-        int attackerIndex = moveCount % 2;
-        moveCount++;
-        String result = Move.makeMove(players.get(attackerIndex), players.get(1 - attackerIndex));
-        if (Move.isGameOver(players)) {
+        String result = move.makeMove(players);
+        if (move.isGameOver(players)) {
             this.gameStatus = GameStatus.OVER;
         }
         gameDisplay.update(players.get(0), players.get(1), result);
