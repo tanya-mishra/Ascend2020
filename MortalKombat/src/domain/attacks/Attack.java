@@ -1,5 +1,8 @@
 package domain.attacks;
 
+/**
+ * Interface for possible attacks
+ */
 public interface Attack {
 
     /**

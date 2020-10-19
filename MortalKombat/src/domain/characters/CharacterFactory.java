@@ -2,6 +2,12 @@ package domain.characters;
 
 public class CharacterFactory {
 
+    /**
+     * Method to return a character based on the supplied name
+     *
+     * @param name
+     * @return
+     */
     public Character getCharacter(String name) {
         if (name == null) {
             return null;

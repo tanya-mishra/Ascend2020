@@ -8,6 +8,9 @@ import domain.attacks.Punch;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Character selected by Player
+ */
 public abstract class Character {
 
    Jump jump;
@@ -36,12 +39,30 @@ public abstract class Character {
       return powerFactor;
    }
 
+   /**
+    * Sets the name of the character - to be implemented
+    */
    public abstract void setName();
 
+   /**
+    * Sets the victory move for this character - to be implemented
+    *
+    * @return
+    */
    public abstract String makeVictoryMove();
 
+   /**
+    * Sets the power factor for this character - to be implemented
+    */
    public abstract void setPowerFactor();
 
+   /**
+    * Gets the list of available attacks which are possible with the
+    * specified energy
+    *
+    * @param energy
+    * @return
+    */
    public List<AttackName> getAvailableAttacks(Integer energy) {
       List<AttackName> availableAttackTypes = new ArrayList<>();
       if (jump.getEnergyCost() * getPowerFactor() <= energy) {

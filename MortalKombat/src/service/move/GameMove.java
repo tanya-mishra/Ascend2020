@@ -5,6 +5,9 @@ import domain.players.Player;
 
 import java.util.List;
 
+/**
+ * Implementation of the move interface
+ */
 public class GameMove implements Move {
 
     private static int moveCount = 0;
@@ -26,31 +29,60 @@ public class GameMove implements Move {
         }
     }
 
+    /**
+     * Find the player based on the move count and make a move
+     *
+     * @param players
+     * @return
+     */
     public String makeMove(List<Player> players) {
         int attackerIndex = moveCount % 2;
         moveCount++;
         return this.makeMove(players.get(attackerIndex), players.get(1 - attackerIndex));
     }
 
+    /**
+     * Make a move with one of the available attacks for a player
+     *
+     * @param attacker
+     * @param defender
+     * @return
+     */
     private String makeMove(Player attacker, Player defender) {
-        StringBuilder result = new StringBuilder();
+        StringBuilder moveDetails = new StringBuilder("(Move#").append(moveCount).append(")---");
         List<AttackName> availableAttacks = attacker.getAvailableAttacks();
         if (availableAttacks.size() > 0) {
             Attack attack = getRandomAttack(availableAttacks);
-            result.append(attacker.attack(attack));
+            //Attacker attacks
+            moveDetails.append(attacker.attack(attack));
+            //Defender defends
             defender.defend(attack, attacker.getCharacter().getPowerFactor());
         } else {
-            result.append(attacker.getCharacter().getName())
-                    .append(" Low on power - no moves possible ");
+            //No moves possible
+            moveDetails.append(attacker.getCharacter().getName())
+                    .append(" : Low on energy - no moves possible. ");
         }
-        return result.toString();
+        return moveDetails.toString();
     }
 
+    /**
+     * Get a random attack from a list of available attacks
+     *
+     * @param availableAttacks
+     * @return
+     */
     private static Attack getRandomAttack(List<AttackName> availableAttacks) {
         AttackName attackName = availableAttacks.get((int) (Math.random() * availableAttacks.size()));
         return getAttackByName(attackName);
     }
 
+    /**
+     * Checks game status based on player health and remaining moves.
+     * Returns TRUE if either player has 0 health or if no moves are possible for either player
+     *
+     * @param players
+     * @return
+     */
     public Boolean isGameOver(List<Player> players) {
 
         return (players.get(0).getHealth() <= 0

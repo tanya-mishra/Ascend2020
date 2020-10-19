@@ -2,6 +2,9 @@ package domain.attacks;
 
 public class Kick implements Attack {
 
+    /*
+    Health lost on defending Kick
+   */
     @Override
     public Integer getDamage() {
         return 7;
@@ -19,6 +22,6 @@ public class Kick implements Attack {
      */
     @Override
     public Integer getEnergyCost() {
-        return 15;
+        return 10;
     }
 }

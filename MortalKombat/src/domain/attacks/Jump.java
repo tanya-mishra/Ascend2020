@@ -1,7 +1,13 @@
 package domain.attacks;
 
+/*
+Jump attack
+ */
 public class Jump implements Attack {
 
+    /*
+    Health lost on defending Jump
+     */
     @Override
     public Integer getDamage() {
         return 5;
@@ -19,7 +25,7 @@ public class Jump implements Attack {
      */
     @Override
     public Integer getEnergyCost() {
-        return 10;
+        return 7;
     }
 
 }

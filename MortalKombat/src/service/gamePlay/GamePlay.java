@@ -7,8 +7,12 @@ import service.move.Move;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class to simulate game play
+ */
 public class GamePlay {
 
+    //Two players in the game
     List<Player> players;
 
     GameDisplay gameDisplay;
@@ -27,6 +31,9 @@ public class GamePlay {
         move = new GameMove();
     }
 
+    /*
+    Make a game move
+     */
     private void makeMove() {
         String result = move.makeMove(players);
         if (move.isGameOver(players)) {
@@ -35,23 +42,39 @@ public class GamePlay {
         gameDisplay.update(players.get(0), players.get(1), result);
     }
 
+    /**
+     * Start the game
+     */
     private void startGame() {
         this.gameStatus = GameStatus.IN_PROGRESS;
     }
 
 
+    /**
+     * Start the game and make moves
+     */
     public void init() {
         this.startGame();
         this.makeMoves();
     }
 
+    /**
+     * Make the move while the game is in progress
+     */
     private void makeMoves() {
-
         while (this.gameStatus.equals(GameStatus.IN_PROGRESS)) {
             makeMove();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ignored) {
+            }
+
         }
     }
 
+    /**
+     * Save the game
+     */
     public void save() {
         this.gameSaver.saveGame(this.gameStatus);
     }

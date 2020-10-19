@@ -2,6 +2,9 @@ package domain.attacks;
 
 public class Punch implements Attack {
 
+    /*
+     Health lost on defending Punch
+   */
     @Override
     public Integer getDamage() {
         return 3;

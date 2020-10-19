@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class for players in Mortal Kombat game
+ */
 public class Player {
 
     Character character;
@@ -19,7 +22,7 @@ public class Player {
 
     public Player(String characterName) {
         CharacterFactory cf = new CharacterFactory();
-
+        //Select a random character if no character name is passed.
         if (characterName == null) {
             List<String> characters = Arrays.asList("JC", "LK", "K", "R");
             characterName = characters.get(getRandomNumberUsingInts(characters.size()));
@@ -51,21 +54,44 @@ public class Player {
         this.health = health;
     }
 
+    /**
+     * Player executes attack. This decrements the energy
+     *
+     * @param attack - attack to be executed
+     * @return - Details of attack
+     */
     public String attack(Attack attack) {
         Integer energyNeeded = attack.getEnergyCost() * this.getCharacter().getPowerFactor();
         this.setEnergy(this.getEnergy() - energyNeeded);
-        return this.character.getName() + ":" + attack.attack();
+        return this.character.getName() + ": " + attack.attack().toUpperCase();
     }
 
+    /**
+     * Player defends against attack
+     *
+     * @param attack      - Attack to defend against
+     * @param powerFactor - Power factor of attacker
+     */
     public void defend(Attack attack, Integer powerFactor) {
         int remainingHealth = this.getHealth() - (int) (attack.getDamage() * powerFactor * 1.5);
         this.setHealth(Math.max(remainingHealth, 0));
     }
 
+    /**
+     * Make the victory move if this player wins
+     *
+     * @return - Description of victory move
+     */
     public String makeVictoryMove() {
-        return this.getCharacter().getName() + " wins! \n Victory Move : " + this.getCharacter().makeVictoryMove();
+        return this.getCharacter().getName() + " wins! \nVictory Move: " + this.getCharacter().makeVictoryMove();
     }
 
+    /**
+     * Get a list of attacks that the player can make with the energy available
+     * currently
+     *
+     * @return - List<AttackName>
+     */
     public List<AttackName> getAvailableAttacks() {
         return this.getCharacter().getAvailableAttacks(this.getEnergy());
     }
@@ -80,6 +106,12 @@ public class Player {
                         "]";
     }
 
+    /**
+     * Get a random number b/w 0 and max
+     *
+     * @param max - upper range
+     * @return - random number in [0,max)
+     */
     private int getRandomNumberUsingInts(int max) {
         Random random = new Random();
         return random.nextInt(max);
