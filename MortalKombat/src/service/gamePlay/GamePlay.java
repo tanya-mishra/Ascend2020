@@ -1,7 +1,8 @@
 package service.gamePlay;
 
-import domain.move.GameMove;
 import domain.players.Player;
+import service.move.GameMove;
+import service.move.Move;
 
 import java.util.Arrays;
 import java.util.List;

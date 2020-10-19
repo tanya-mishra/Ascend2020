@@ -1,8 +1,7 @@
-package domain.move;
+package service.move;
 
 import domain.attacks.*;
 import domain.players.Player;
-import service.gamePlay.Move;
 
 import java.util.List;
 

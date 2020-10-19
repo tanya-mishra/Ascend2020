@@ -1,4 +1,4 @@
-package service.gamePlay;
+package service.move;
 
 import domain.players.Player;
 
